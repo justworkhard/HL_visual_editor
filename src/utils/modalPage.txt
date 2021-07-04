@@ -1,0 +1,44 @@
+import React, { forwardRef,useState, useEffect, useImperativeHandle } from 'react';
+import Components from '@/components'
+
+const { Form} = Components;
+
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+const App = (props: any, ref: any) => {
+  const { afterClick, modalData } = props
+
+  const [form] = Form.useForm();
+  useImperativeHandle(ref, () => {
+    return {
+      form: form
+    }
+  });
+
+
+  function onClickSubmit() {
+    afterClick()
+  }
+  useEffect(() => {
+
+  }, [])
+
+  return (
+    <Form
+      form={form}
+      {...layout}
+      initialValues={{
+        ...modalData,
+      }}
+      onFinish={onClickSubmit}
+      onFinishFailed={() => {
+      }}
+    >
+
+    </Form >
+  )
+}
+export default forwardRef(App)
